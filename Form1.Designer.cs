@@ -39,7 +39,6 @@ namespace PCA
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel5 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -117,10 +116,6 @@ namespace PCA
             this.panel4.Size = new System.Drawing.Size(223, 40);
             this.panel4.TabIndex = 6;
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // panel5
             // 
             this.panel5.Controls.Add(this.label3);
@@ -174,7 +169,6 @@ namespace PCA
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label3;
     }
