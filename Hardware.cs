@@ -63,6 +63,28 @@ namespace PCA
             GC.Collect();
             return Load;
         }
+        public int Get_CPU_Clock()
+        {
+            int Clock = 0;
+            int i=0;
+            UpdateVisitor updateVisitor = new UpdateVisitor();
+            Computer computer = new Computer();
+            computer.Open();
+            computer.CPUEnabled = true;
+            computer.Accept(updateVisitor);
+            for (int j = 0; j < computer.Hardware[0].Sensors.Length; j++)
+            {
+                //找到温度传感器
+                if (computer.Hardware[0].Sensors[j].SensorType == SensorType.Clock)
+                {
+                    Clock += Convert.ToInt32(computer.Hardware[0].Sensors[j].Value);
+                    i++;
+                }
+            }
+            computer.Close();
+            GC.Collect();
+            return Clock/i;
+        }
         /// <summary>
         /// 获取GPU信息
         /// </summary>
@@ -151,6 +173,39 @@ namespace PCA
             GC.Collect();
             return Load;
         }
+        public int Get_GPU_Clock()
+        {
+            int Clock = 0;
+            UpdateVisitor updateVisitor = new UpdateVisitor();
+            Computer computer = new Computer();
+            computer.Open();
+            computer.GPUEnabled = true;
+            computer.Accept(updateVisitor);
+            try
+            {
+                for (int i = 0; i < computer.Hardware[1].Sensors.Length; i++)
+                {
+                    if (computer.Hardware[1].Sensors[i].SensorType == SensorType.Clock)
+                    {
+                        Clock = Convert.ToInt32(computer.Hardware[1].Sensors[i].Value);
+                    }
+                }
+            }
+            catch
+            {
+
+                for (int i = 0; i < computer.Hardware[0].Sensors.Length; i++)
+                {
+                    if (computer.Hardware[0].Sensors[i].SensorType == SensorType.Clock)
+                    {
+                        Clock = Convert.ToInt32(computer.Hardware[0].Sensors[i].Value);
+                    }
+                }
+            }
+            computer.Close();
+            GC.Collect();
+            return Clock;
+        }
         /// <summary>
         /// 获取RAM信息
         /// </summary>
@@ -180,6 +235,16 @@ namespace PCA
             computer.Close();
             GC.Collect();
             return Total;
+        }
+        public String Get_borad()
+        {
+            string borad =null;
+            UpdateVisitor updateVisitor = new UpdateVisitor();
+            Computer computer = new Computer();
+            computer.Open();
+            computer.MainboardEnabled = true;
+            borad =computer.Hardware[0].Name;
+            return borad;
         }
     }
     public class UpdateVisitor : IVisitor
