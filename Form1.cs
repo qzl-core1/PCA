@@ -11,6 +11,8 @@ namespace PCA
 {
     public partial class Form1 : Form
     {
+        private Point mousepoint;
+        private Boolean leftflag = false;
         Hardware Hardwaremonitor = new Hardware();
         StringBuilder CPU_tab_temp = new StringBuilder(10);
         StringBuilder CPU_tab_Load = new StringBuilder(10);
@@ -73,6 +75,9 @@ namespace PCA
             task.IsBackground  =  true;
             task.Start();
         }
+        /// <summary>
+        /// 一个用于刷新的任务的线程函数
+        /// </summary>
         private void get_infor()
         {
             while (true)
@@ -89,6 +94,7 @@ namespace PCA
                 label10.Text = Convert.ToString(GPU_tab_temp);
                 label11.Text = Convert.ToString(GPU_tab_Load);
                 label12.Text = Convert.ToString(GPU_tab_Fre);
+                Thread.Sleep(1500);
                 CPU_tab_temp.Clear();
                 CPU_tab_Load.Clear();
                 CPU_tab_Fre.Clear();
@@ -98,5 +104,40 @@ namespace PCA
             }
         }
 
+        private void tabControl1_MouseDown(object sender, MouseEventArgs e)
+        {
+            {
+                if (e.Button == MouseButtons.Left)//如果右键，则不移动
+                {
+                    mousepoint.X = e.X;
+                    mousepoint.Y = e.Y;
+                    leftflag = true;
+                }
+
+            }//  首先记下按下左键时的第一个鼠标位置
+        }
+
+        private void tabControl1_MouseUp(object sender, MouseEventArgs e)
+        {
+                leftflag = false;//松开，不移动
+        }
+        /// <summary>
+        /// 用于窗体移动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tabControl1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (leftflag)//如果鼠标右键了，则准备开始移动
+            {
+                Left = MousePosition.X - mousepoint.X;
+                Top = MousePosition.Y - mousepoint.Y;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

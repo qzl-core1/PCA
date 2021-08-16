@@ -63,6 +63,8 @@ namespace PCA
             this.label10 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -81,6 +83,7 @@ namespace PCA
             this.panel13.SuspendLayout();
             this.panel12.SuspendLayout();
             this.panel11.SuspendLayout();
+            this.panel15.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -104,14 +107,14 @@ namespace PCA
             this.panel2.Controls.Add(this.button1);
             this.panel2.Location = new System.Drawing.Point(113, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(133, 53);
+            this.panel2.Size = new System.Drawing.Size(114, 53);
             this.panel2.TabIndex = 1;
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(3, 6);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 47);
+            this.button1.Size = new System.Drawing.Size(102, 35);
             this.button1.TabIndex = 0;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -176,7 +179,7 @@ namespace PCA
             this.panel6.Controls.Add(this.label4);
             this.panel6.Location = new System.Drawing.Point(6, 210);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(352, 40);
+            this.panel6.Size = new System.Drawing.Size(365, 40);
             this.panel6.TabIndex = 7;
             // 
             // label4
@@ -191,44 +194,51 @@ namespace PCA
             // 
             // tabControl1
             // 
+            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(6, 7);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.tabControl1.Location = new System.Drawing.Point(-4, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(387, 288);
+            this.tabControl1.Size = new System.Drawing.Size(400, 300);
+            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControl1.TabIndex = 8;
+            this.tabControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseDown);
+            this.tabControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseMove);
+            this.tabControl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseUp);
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.tabPage1.Controls.Add(this.panel15);
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Controls.Add(this.panel6);
             this.tabPage1.Controls.Add(this.panel2);
             this.tabPage1.Controls.Add(this.panel5);
             this.tabPage1.Controls.Add(this.panel4);
             this.tabPage1.Controls.Add(this.panel3);
-            this.tabPage1.Location = new System.Drawing.Point(4, 28);
+            this.tabPage1.Location = new System.Drawing.Point(4, 31);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(379, 256);
+            this.tabPage1.Size = new System.Drawing.Size(392, 265);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "信息概览";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
+            this.tabPage2.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.tabPage2.Controls.Add(this.panel10);
             this.tabPage2.Controls.Add(this.panel9);
             this.tabPage2.Controls.Add(this.panel8);
             this.tabPage2.Controls.Add(this.panel7);
-            this.tabPage2.Location = new System.Drawing.Point(4, 28);
+            this.tabPage2.Location = new System.Drawing.Point(4, 31);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(379, 256);
+            this.tabPage2.Size = new System.Drawing.Size(391, 265);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "CPU";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel10
             // 
@@ -304,16 +314,16 @@ namespace PCA
             // 
             // tabPage3
             // 
+            this.tabPage3.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.tabPage3.Controls.Add(this.panel14);
             this.tabPage3.Controls.Add(this.panel13);
             this.tabPage3.Controls.Add(this.panel12);
             this.tabPage3.Controls.Add(this.panel11);
-            this.tabPage3.Location = new System.Drawing.Point(4, 28);
+            this.tabPage3.Location = new System.Drawing.Point(4, 31);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(379, 256);
+            this.tabPage3.Size = new System.Drawing.Size(392, 265);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "GPU";
-            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // panel14
             // 
@@ -327,7 +337,7 @@ namespace PCA
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(6, 10);
+            this.label12.Location = new System.Drawing.Point(3, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(94, 24);
             this.label12.TabIndex = 0;
@@ -345,7 +355,7 @@ namespace PCA
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(6, 11);
+            this.label11.Location = new System.Drawing.Point(6, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(94, 24);
             this.label11.TabIndex = 0;
@@ -363,7 +373,7 @@ namespace PCA
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(3, 16);
+            this.label10.Location = new System.Drawing.Point(3, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(94, 24);
             this.label10.TabIndex = 0;
@@ -381,19 +391,40 @@ namespace PCA
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(6, 10);
+            this.label9.Location = new System.Drawing.Point(6, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(82, 24);
             this.label9.TabIndex = 0;
             this.label9.Text = "label9";
             // 
+            // panel15
+            // 
+            this.panel15.Controls.Add(this.button2);
+            this.panel15.Location = new System.Drawing.Point(314, 3);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(70, 52);
+            this.panel15.TabIndex = 8;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(3, 11);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(59, 33);
+            this.button2.TabIndex = 0;
+            this.button2.Text = "退出";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(396, 300);
             this.Controls.Add(this.tabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
@@ -426,6 +457,7 @@ namespace PCA
             this.panel12.PerformLayout();
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
+            this.panel15.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -465,6 +497,8 @@ namespace PCA
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.Button button2;
     }
 }
 
