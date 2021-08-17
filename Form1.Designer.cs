@@ -45,6 +45,8 @@ namespace PCA
             this.label4 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
@@ -63,8 +65,6 @@ namespace PCA
             this.label10 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
-            this.panel15 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -73,6 +73,7 @@ namespace PCA
             this.panel6.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.panel15.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel10.SuspendLayout();
             this.panel9.SuspendLayout();
@@ -83,7 +84,6 @@ namespace PCA
             this.panel13.SuspendLayout();
             this.panel12.SuspendLayout();
             this.panel11.SuspendLayout();
-            this.panel15.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -130,6 +130,7 @@ namespace PCA
             // 
             // label2
             // 
+            this.label2.AutoEllipsis = true;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(13, 0);
@@ -226,6 +227,24 @@ namespace PCA
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "信息概览";
             // 
+            // panel15
+            // 
+            this.panel15.Controls.Add(this.button2);
+            this.panel15.Location = new System.Drawing.Point(345, 6);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(44, 56);
+            this.panel15.TabIndex = 8;
+            // 
+            // button2
+            // 
+            this.button2.Image = global::PCA.Properties.Resources.关闭;
+            this.button2.Location = new System.Drawing.Point(3, 11);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(33, 33);
+            this.button2.TabIndex = 0;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -236,7 +255,7 @@ namespace PCA
             this.tabPage2.Location = new System.Drawing.Point(4, 31);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(391, 265);
+            this.tabPage2.Size = new System.Drawing.Size(392, 265);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "CPU";
             // 
@@ -397,24 +416,6 @@ namespace PCA
             this.label9.TabIndex = 0;
             this.label9.Text = "label9";
             // 
-            // panel15
-            // 
-            this.panel15.Controls.Add(this.button2);
-            this.panel15.Location = new System.Drawing.Point(314, 3);
-            this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(70, 52);
-            this.panel15.TabIndex = 8;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(3, 11);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(59, 33);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "退出";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -439,6 +440,7 @@ namespace PCA
             this.panel6.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.panel15.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
@@ -457,7 +459,6 @@ namespace PCA
             this.panel12.PerformLayout();
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
-            this.panel15.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

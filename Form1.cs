@@ -59,8 +59,8 @@ namespace PCA
             Control.CheckForIllegalCrossThreadCalls =false;
             button1.Text ="扫描设备";
             comboBox1.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames());
-            label1.Text = "CPU:"+Hardwaremonitor.Get_CPU_Name();
-            label2.Text = "GPU:"+Hardwaremonitor.Get_GPU_Name();
+            label1.Text = Hardwaremonitor.Get_CPU_Name();
+            label2.Text = Hardwaremonitor.Get_GPU_Name();
             label3.Text = "主板："+Hardwaremonitor.Get_borad();
             label4.Text = "可用内存：" + Convert.ToString(Hardwaremonitor.Get_RAM_Total())+"GB";
             label5.Text = label1.Text;

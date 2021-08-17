@@ -132,7 +132,7 @@ namespace PCA
                 {
                     if (computer.Hardware[0].Sensors[i].SensorType == SensorType.Temperature)
                     {
-                        Temp = Convert.ToInt32(computer.Hardware[1].Sensors[i].Value);
+                        Temp = Convert.ToInt32(computer.Hardware[0].Sensors[i].Value);
                     }
                 }
             }
