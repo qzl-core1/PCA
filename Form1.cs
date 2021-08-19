@@ -7,15 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace PCA
 {
     public partial class Form1 : Form
     {
-
-
-
-
         private Point mousepoint;
         private Boolean leftflag = false;//右击标志位
         private Boolean Send_flag =false;//发送的标志位
@@ -28,11 +25,11 @@ namespace PCA
         StringBuilder GPU_tab_Fre = new StringBuilder(10);
         StringBuilder Send_CPU_temp = new StringBuilder(3);
         StringBuilder Send_CPU_Load = new StringBuilder(3);
-        //StringBuilder Send_CPU_tab_Fre = new StringBuilder(10);
         StringBuilder Send_GPU_temp = new StringBuilder(3);
         StringBuilder Send_GPU_Load = new StringBuilder(3);
-        //StringBuilder Send_GPU_tab_Fre = new StringBuilder(10);
         StringBuilder Send_RAM_Load = new StringBuilder(3);
+
+
         public Form1()
         {
             InitializeComponent();
@@ -96,9 +93,14 @@ namespace PCA
         /// </summary>
         private void get_infor()
         {
+            // 设置曲线的样式
+            Series series = chart1.Series[0];
+            int CPU_temp = 0;
+            //int x = 0;
             while (true)
             {
-                CPU_tab_temp.Append("温度："+Convert.ToString(Hardwaremonitor.Get_CPU_Temp())+"°C");
+                CPU_temp = Hardwaremonitor.Get_CPU_Temp();
+                CPU_tab_temp.Append("温度："+Convert.ToString(CPU_temp)+"°C");
                 CPU_tab_Load.Append("使用率：" + Convert.ToString(Hardwaremonitor.Get_CPU_Load())+"%");
                 CPU_tab_Fre.Append("频率："+Convert.ToString(Hardwaremonitor.Get_CPU_Clock()+"Mhz"));
                 GPU_tab_temp.Append("温度：" + Convert.ToString(Hardwaremonitor.Get_GPU_Temp()) + "°C");
@@ -110,13 +112,13 @@ namespace PCA
                 label10.Text = Convert.ToString(GPU_tab_temp);
                 label11.Text = Convert.ToString(GPU_tab_Load);
                 label12.Text = Convert.ToString(GPU_tab_Fre);
-                Thread.Sleep(1500);
                 CPU_tab_temp.Clear();
                 CPU_tab_Load.Clear();
                 CPU_tab_Fre.Clear();
                 GPU_tab_temp.Clear();
                 GPU_tab_Load.Clear();
                 GPU_tab_Fre.Clear();
+                series.Points.AddY(CPU_temp);
                 if(Send_flag)
                 {
                     Send_CPU_temp.Append(Convert.ToString(Hardwaremonitor.Get_CPU_Temp()));
@@ -131,6 +133,7 @@ namespace PCA
                     Send_GPU_Load.Clear();
                     Send_RAM_Load.Clear();
                 }
+                Thread.Sleep(2000);
             }
         }
 
