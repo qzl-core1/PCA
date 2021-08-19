@@ -7,10 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+
 namespace PCA
 {
     public partial class Form1 : Form
     {
+
+
+
+
         private Point mousepoint;
         private Boolean leftflag = false;//右击标志位
         private Boolean Send_flag =false;//发送的标志位
@@ -35,9 +40,6 @@ namespace PCA
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Thread Send_task =new Thread(Send_infor);
-            Send_task.IsBackground =true;
-            
             try
             {
                 if (serialPort1.IsOpen)//假如串口已经打开，点击的目的是关闭串口
@@ -56,7 +58,7 @@ namespace PCA
                     serialPort1.StopBits = System.IO.Ports.StopBits.One;
                     button1.Text ="关闭设备";
                     serialPort1.Open();
-                    Send_task.Start();
+                    Send_flag = true;
                 }
             }
             catch 
@@ -115,6 +117,20 @@ namespace PCA
                 GPU_tab_temp.Clear();
                 GPU_tab_Load.Clear();
                 GPU_tab_Fre.Clear();
+                if(Send_flag)
+                {
+                    Send_CPU_temp.Append(Convert.ToString(Hardwaremonitor.Get_CPU_Temp()));
+                    Send_CPU_Load.Append(Convert.ToString(Hardwaremonitor.Get_CPU_Load()));
+                    Send_GPU_temp.Append(Convert.ToString(Hardwaremonitor.Get_GPU_Temp()));
+                    Send_GPU_Load.Append(Convert.ToString(Hardwaremonitor.Get_GPU_Load()));
+                    Send_RAM_Load.Append(Convert.ToString(Hardwaremonitor.Get_RAM_Load()));
+                    serialPort1.Write(Convert.ToString(Send_CPU_temp) + Convert.ToString(Send_CPU_Load) + Convert.ToString(Send_GPU_temp) + Convert.ToString(Send_GPU_Load) + Convert.ToString(Send_RAM_Load));
+                    Send_CPU_temp.Clear();
+                    Send_CPU_Load.Clear();
+                    Send_GPU_temp.Clear();
+                    Send_GPU_Load.Clear();
+                    Send_RAM_Load.Clear();
+                }
             }
         }
 
@@ -156,28 +172,6 @@ namespace PCA
         private void button2_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        private void Send_infor()
-        {
-            while (Send_flag)
-            {
-                Send_CPU_temp.Append(Convert.ToString(Hardwaremonitor.Get_CPU_Temp()));
-                Send_CPU_Load.Append(Convert.ToString(Hardwaremonitor.Get_CPU_Load()));
-                Send_GPU_temp.Append(Convert.ToString(Hardwaremonitor.Get_GPU_Temp()));
-                Send_GPU_Load.Append(Convert.ToString(Hardwaremonitor.Get_GPU_Load()));
-                Send_RAM_Load.Append(Convert.ToString(Hardwaremonitor.Get_RAM_Load()));
-                serialPort1.Write(Convert.ToString(Send_CPU_temp));//发送CPU温度字节
-                serialPort1.Write(Convert.ToString(Send_CPU_Load));//发送CPU使用率字节
-                serialPort1.Write(Convert.ToString(Send_GPU_temp));//发送GPU温度字节
-                serialPort1.Write(Convert.ToString(Send_GPU_Load));//发送GPU使用率字节
-                serialPort1.Write(Convert.ToString(Send_RAM_Load));//发送RAM使用率字节
-                Send_CPU_temp.Clear();
-                Send_CPU_Load.Clear();
-                Send_GPU_temp.Clear();
-                Send_GPU_Load.Clear();
-                Send_RAM_Load.Clear();
-            }
         }
 
     }
