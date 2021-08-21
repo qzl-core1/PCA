@@ -96,7 +96,7 @@ namespace PCA
             // 设置曲线的样式
             Series series = chart1.Series[0];
             int CPU_temp = 0;
-            //int x = 0;
+            String infor = null;
             while (true)
             {
                 CPU_temp = Hardwaremonitor.Get_CPU_Temp();
@@ -119,21 +119,53 @@ namespace PCA
                 GPU_tab_Load.Clear();
                 GPU_tab_Fre.Clear();
                 series.Points.AddY(CPU_temp);
-                if(Send_flag)
+                try
                 {
-                    Send_CPU_temp.Append(Convert.ToString(Hardwaremonitor.Get_CPU_Temp()));
-                    Send_CPU_Load.Append(Convert.ToString(Hardwaremonitor.Get_CPU_Load()));
-                    Send_GPU_temp.Append(Convert.ToString(Hardwaremonitor.Get_GPU_Temp()));
-                    Send_GPU_Load.Append(Convert.ToString(Hardwaremonitor.Get_GPU_Load()));
-                    Send_RAM_Load.Append(Convert.ToString(Hardwaremonitor.Get_RAM_Load()));
-                    serialPort1.Write(Convert.ToString(Send_CPU_temp) + Convert.ToString(Send_CPU_Load) + Convert.ToString(Send_GPU_temp) + Convert.ToString(Send_GPU_Load) + Convert.ToString(Send_RAM_Load));
-                    Send_CPU_temp.Clear();
-                    Send_CPU_Load.Clear();
-                    Send_GPU_temp.Clear();
-                    Send_GPU_Load.Clear();
-                    Send_RAM_Load.Clear();
+                    if (Send_flag)
+                    {
+                        
+                        Send_CPU_temp.Append(Convert.ToString(Hardwaremonitor.Get_CPU_Temp()));
+                        if(Send_CPU_temp.Length==2) { Send_CPU_temp.Insert(0, '0'); }
+
+
+                        Send_CPU_Load.Append(Convert.ToString(Hardwaremonitor.Get_CPU_Load()));
+                        if (Send_CPU_Load.Length==2)
+                        {
+                            Send_CPU_Load.Insert(0, '0');
+                        }
+                        else if(Send_CPU_Load.Length == 1)
+                        { Send_CPU_Load.Insert(0, '0'); Send_CPU_Load.Insert(1, '0'); }
+
+                        Send_GPU_temp.Append(Convert.ToString(Hardwaremonitor.Get_GPU_Temp()));
+                        if (Send_GPU_temp.Length==2) { Send_GPU_temp.Insert(0,'0'); }
+                        else if(Send_GPU_temp.Length == 1) { Send_GPU_temp.Insert(0, '0'); Send_GPU_temp.Insert(1, '0'); }
+                    
+                        Send_GPU_Load.Append(Convert.ToString(Hardwaremonitor.Get_GPU_Load()));
+
+                        if (Send_GPU_Load.Length==2) { Send_GPU_Load.Insert(0,'0'); }
+                        else if(Send_GPU_Load.Length==1)
+                        { Send_GPU_Load.Insert(0,'0'); Send_GPU_Load.Insert(1, '0'); }
+
+
+                        Send_RAM_Load.Append(Convert.ToString(Hardwaremonitor.Get_RAM_Load()));
+                        if (Send_RAM_Load.Length == 2) { Send_RAM_Load.Insert(0,'0'); }
+                        else if (Send_RAM_Load.Length == 1) { Send_RAM_Load.Insert(0, '0'); Send_RAM_Load.Insert(1, '0'); }
+                        infor = Convert.ToString(Send_CPU_temp) + Convert.ToString(Send_CPU_Load) + Convert.ToString(Send_GPU_temp) + Convert.ToString(Send_GPU_Load) + Convert.ToString(Send_RAM_Load);
+                        serialPort1.Write(infor);
+                        Send_CPU_temp.Clear();
+                        Send_CPU_Load.Clear();
+                        Send_GPU_temp.Clear();
+                        Send_GPU_Load.Clear();
+                        Send_RAM_Load.Clear();
+                        textBox1.Text = infor;
+                    }
                 }
-                Thread.Sleep(2000);
+                catch
+                {
+
+                    Send_flag =false;
+                }
+                Thread.Sleep(2500);
             }
         }
 

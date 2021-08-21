@@ -70,6 +70,8 @@ namespace PCA
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.panel16 = new System.Windows.Forms.Panel();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabPage3.SuspendLayout();
             this.panel14.SuspendLayout();
             this.panel13.SuspendLayout();
@@ -92,6 +94,7 @@ namespace PCA
             this.tabPage4.SuspendLayout();
             this.panel16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage3
@@ -344,7 +347,7 @@ namespace PCA
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(3, 6);
+            this.button1.Location = new System.Drawing.Point(9, 15);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(102, 35);
             this.button1.TabIndex = 0;
@@ -414,6 +417,7 @@ namespace PCA
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Right;
             this.tabControl1.Location = new System.Drawing.Point(-4, 0);
             this.tabControl1.Name = "tabControl1";
@@ -459,6 +463,25 @@ namespace PCA
             this.chart1.Size = new System.Drawing.Size(384, 247);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.textBox1);
+            this.tabPage5.Location = new System.Drawing.Point(4, 31);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(392, 265);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "tabPage5";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(44, 25);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(295, 154);
+            this.textBox1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -506,6 +529,8 @@ namespace PCA
             this.tabPage4.ResumeLayout(false);
             this.panel16.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -550,6 +575,8 @@ namespace PCA
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Panel panel16;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
