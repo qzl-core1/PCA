@@ -87,6 +87,7 @@ namespace PCA
             Thread Get_task = new Thread(get_infor);//创建线程
             Get_task.IsBackground  =  true;
             Get_task.Start();
+            notifyIcon1.Visible =false;
         }
         /// <summary>
         /// 一个用于刷新的任务的线程函数
@@ -208,5 +209,21 @@ namespace PCA
             Application.Exit();
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            notifyIcon1.Visible = true;                 //小图标可见
+        }
+
+        private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button==MouseButtons.Left)
+            {
+                this.Visible = true;                        //窗体可见
+                this.WindowState = FormWindowState.Normal;  //窗体默认大小
+                this.notifyIcon1.Visible = true;            //设置图标可见
+                notifyIcon1.Visible =false;                 //小图标不可见
+            }
+        }
     }
 }
