@@ -157,7 +157,6 @@ namespace PCA
                         Send_GPU_temp.Clear();
                         Send_GPU_Load.Clear();
                         Send_RAM_Load.Clear();
-                        textBox1.Text = infor;
                     }
                 }
                 catch
