@@ -29,7 +29,6 @@ namespace PCA
         StringBuilder Send_GPU_Load = new StringBuilder(3);
         StringBuilder Send_RAM_Load = new StringBuilder(3);
 
-
         public Form1()
         {
             InitializeComponent();
@@ -88,6 +87,8 @@ namespace PCA
             Get_task.IsBackground  =  true;
             Get_task.Start();
             notifyIcon1.Visible =false;
+            // tabcontrol设置为可以自定义绘制标签内容
+            this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl_DrawItem);
         }
         /// <summary>
         /// 一个用于刷新的任务的线程函数
@@ -97,15 +98,23 @@ namespace PCA
             // 设置曲线的样式
             Series series = chart1.Series[0];
             int CPU_temp = 0;
+            int CPU_Load =0;
+            int GPU_temp =0;
+            int GPU_Load =0;
+            int RAM_Load =0;
             String infor = null;
             while (true)
             {
                 CPU_temp = Hardwaremonitor.Get_CPU_Temp();
+                CPU_Load = Hardwaremonitor.Get_CPU_Load();
+                GPU_temp = Hardwaremonitor.Get_GPU_Temp();
+                GPU_Load = Hardwaremonitor.Get_GPU_Load();
+                RAM_Load = Hardwaremonitor.Get_RAM_Load();
                 CPU_tab_temp.Append("温度："+Convert.ToString(CPU_temp)+"°C");
-                CPU_tab_Load.Append("使用率：" + Convert.ToString(Hardwaremonitor.Get_CPU_Load())+"%");
+                CPU_tab_Load.Append("使用率：" + Convert.ToString(CPU_Load) +"%");
                 CPU_tab_Fre.Append("频率："+Convert.ToString(Hardwaremonitor.Get_CPU_Clock()+"Mhz"));
-                GPU_tab_temp.Append("温度：" + Convert.ToString(Hardwaremonitor.Get_GPU_Temp()) + "°C");
-                GPU_tab_Load.Append("使用率：" + Convert.ToString(Hardwaremonitor.Get_GPU_Load())+"%");
+                GPU_tab_temp.Append("温度：" + Convert.ToString(GPU_temp) + "°C");
+                GPU_tab_Load.Append("使用率：" + Convert.ToString(GPU_Load) +"%");
                 GPU_tab_Fre.Append("频率："+Convert.ToString(Hardwaremonitor.Get_GPU_Clock())+"Mhz");
                 label6.Text = Convert.ToString(CPU_tab_temp);
                 label7.Text = Convert.ToString(CPU_tab_Load);
@@ -122,14 +131,14 @@ namespace PCA
                 series.Points.AddY(CPU_temp);
                 try
                 {
-                    if (Send_flag)
+                    if (Send_flag)//开始补位操作，数据帧的结构是3字节一个信息
                     {
                         
-                        Send_CPU_temp.Append(Convert.ToString(Hardwaremonitor.Get_CPU_Temp()));
+                        Send_CPU_temp.Append(Convert.ToString(CPU_temp));
                         if(Send_CPU_temp.Length==2) { Send_CPU_temp.Insert(0, '0'); }
 
 
-                        Send_CPU_Load.Append(Convert.ToString(Hardwaremonitor.Get_CPU_Load()));
+                        Send_CPU_Load.Append(Convert.ToString(CPU_Load));
                         if (Send_CPU_Load.Length==2)
                         {
                             Send_CPU_Load.Insert(0, '0');
@@ -137,22 +146,25 @@ namespace PCA
                         else if(Send_CPU_Load.Length == 1)
                         { Send_CPU_Load.Insert(0, '0'); Send_CPU_Load.Insert(1, '0'); }
 
-                        Send_GPU_temp.Append(Convert.ToString(Hardwaremonitor.Get_GPU_Temp()));
+                        Send_GPU_temp.Append(Convert.ToString(GPU_temp));
                         if (Send_GPU_temp.Length==2) { Send_GPU_temp.Insert(0,'0'); }
                         else if(Send_GPU_temp.Length == 1) { Send_GPU_temp.Insert(0, '0'); Send_GPU_temp.Insert(1, '0'); }
                     
-                        Send_GPU_Load.Append(Convert.ToString(Hardwaremonitor.Get_GPU_Load()));
-
+                        Send_GPU_Load.Append(Convert.ToString(GPU_Load));
                         if (Send_GPU_Load.Length==2) { Send_GPU_Load.Insert(0,'0'); }
                         else if(Send_GPU_Load.Length==1)
                         { Send_GPU_Load.Insert(0,'0'); Send_GPU_Load.Insert(1, '0'); }
 
 
-                        Send_RAM_Load.Append(Convert.ToString(Hardwaremonitor.Get_RAM_Load()));
+                        Send_RAM_Load.Append(Convert.ToString(RAM_Load));
                         if (Send_RAM_Load.Length == 2) { Send_RAM_Load.Insert(0,'0'); }
                         else if (Send_RAM_Load.Length == 1) { Send_RAM_Load.Insert(0, '0'); Send_RAM_Load.Insert(1, '0'); }
+
+
                         infor = Convert.ToString(Send_CPU_temp) + Convert.ToString(Send_CPU_Load) + Convert.ToString(Send_GPU_temp) + Convert.ToString(Send_GPU_Load) + Convert.ToString(Send_RAM_Load);
+
                         serialPort1.Write(infor);
+                        //数据清洗
                         Send_CPU_temp.Clear();
                         Send_CPU_Load.Clear();
                         Send_GPU_temp.Clear();
@@ -225,5 +237,40 @@ namespace PCA
                 notifyIcon1.Visible =false;                 //小图标不可见
             }
         }
+        private void tabControl_DrawItem(object sender, DrawItemEventArgs e)
+        {
+
+            #region 改变工作区，工作区这里主要是背景色，因为我Form的背景色就是(45, 45, 48)，为了搭配起来好看
+            //绑定工作区
+            Rectangle rec01 = tabControl1.ClientRectangle;
+            //设置工作区背景色
+            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(46, 51, 73)), rec01);
+            #endregion
+
+            #region 重绘标签头=======================
+            //灰色背景
+            SolidBrush back = new SolidBrush(Color.FromArgb(46, 51, 73));
+            //蓝色字体
+            SolidBrush white = new SolidBrush(Color.FromArgb(122, 193, 255));
+            StringFormat sf = new StringFormat();
+            //文本水平/垂直居中对齐
+            sf.Alignment = StringAlignment.Center;
+            sf.LineAlignment = StringAlignment.Center;
+
+            for (int i = 0; i < tabControl1.TabPages.Count; i++)
+            {
+                //绑定选项卡
+                Rectangle rec = tabControl1.GetTabRect(i);
+                //设置选项卡背景
+                e.Graphics.FillRectangle(back, rec);
+
+                //设置选项卡字体及颜色
+                e.Graphics.DrawString(tabControl1.TabPages[i].Text, new Font("Nirmala UI", 9), white, rec, sf);
+            }
+            #endregion
+
+        }
+
+
     }
 }
