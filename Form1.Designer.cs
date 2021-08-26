@@ -30,8 +30,8 @@ namespace PCA
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea17 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -123,16 +123,16 @@ namespace PCA
             // chart1
             // 
             this.chart1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            chartArea17.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea17);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Location = new System.Drawing.Point(6, 3);
             this.chart1.Name = "chart1";
-            series17.ChartArea = "ChartArea1";
-            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series17.Name = "Series1";
-            series17.ToolTip = "#VAL";
-            series17.YValuesPerPoint = 2;
-            this.chart1.Series.Add(series17);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Name = "Series1";
+            series1.ToolTip = "#VAL";
+            series1.YValuesPerPoint = 2;
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(379, 247);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -345,17 +345,17 @@ namespace PCA
             // panel17
             // 
             this.panel17.Controls.Add(this.button3);
-            this.panel17.Location = new System.Drawing.Point(324, 6);
+            this.panel17.Location = new System.Drawing.Point(340, 16);
             this.panel17.Name = "panel17";
-            this.panel17.Size = new System.Drawing.Size(47, 28);
+            this.panel17.Size = new System.Drawing.Size(33, 38);
             this.panel17.TabIndex = 9;
             // 
             // button3
             // 
             this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(3, 3);
+            this.button3.Location = new System.Drawing.Point(3, 5);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(33, 20);
+            this.button3.Size = new System.Drawing.Size(26, 28);
             this.button3.TabIndex = 0;
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -363,17 +363,17 @@ namespace PCA
             // panel15
             // 
             this.panel15.Controls.Add(this.button2);
-            this.panel15.Location = new System.Drawing.Point(324, 35);
+            this.panel15.Location = new System.Drawing.Point(293, 16);
             this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(44, 30);
+            this.panel15.Size = new System.Drawing.Size(41, 43);
             this.panel15.TabIndex = 8;
             // 
             // button2
             // 
-            this.button2.Image = global::PCA.Properties.Resources.关闭;
-            this.button2.Location = new System.Drawing.Point(3, 5);
+            this.button2.Image = global::PCA.Properties.Resources.关_闭;
+            this.button2.Location = new System.Drawing.Point(3, 8);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(33, 17);
+            this.button2.Size = new System.Drawing.Size(32, 27);
             this.button2.TabIndex = 0;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -513,7 +513,7 @@ namespace PCA
             // notifyIcon1
             // 
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Text = "PCA";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseClick);
             // 

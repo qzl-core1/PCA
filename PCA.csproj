@@ -124,6 +124,7 @@
     <None Include="Resources\关闭.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\关 闭.png" />
     <Content Include="智能硬件解决方案备份.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

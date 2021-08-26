@@ -16,6 +16,7 @@ namespace PCA
         private Point mousepoint;
         private Boolean leftflag = false;//右击标志位
         private Boolean Send_flag =false;//发送的标志位
+        private Boolean Refresh_flag =true;
         Hardware Hardwaremonitor = new Hardware();
         StringBuilder CPU_tab_temp = new StringBuilder(10);
         StringBuilder CPU_tab_Load = new StringBuilder(10);
@@ -97,12 +98,12 @@ namespace PCA
         {
             // 设置曲线的样式
             Series series = chart1.Series[0];
-            int CPU_temp = 0;
-            int CPU_Load =0;
-            int GPU_temp =0;
-            int GPU_Load =0;
-            int RAM_Load =0;
-            String infor = null;
+            int CPU_temp ;
+            int CPU_Load;
+            int GPU_temp;
+            int GPU_Load;
+            int RAM_Load;
+            String infor;
             while (true)
             {
                 CPU_temp = Hardwaremonitor.Get_CPU_Temp();
@@ -110,25 +111,28 @@ namespace PCA
                 GPU_temp = Hardwaremonitor.Get_GPU_Temp();
                 GPU_Load = Hardwaremonitor.Get_GPU_Load();
                 RAM_Load = Hardwaremonitor.Get_RAM_Load();
-                CPU_tab_temp.Append("温度："+Convert.ToString(CPU_temp)+"°C");
-                CPU_tab_Load.Append("使用率：" + Convert.ToString(CPU_Load) +"%");
-                CPU_tab_Fre.Append("频率："+Convert.ToString(Hardwaremonitor.Get_CPU_Clock()+"Mhz"));
-                GPU_tab_temp.Append("温度：" + Convert.ToString(GPU_temp) + "°C");
-                GPU_tab_Load.Append("使用率：" + Convert.ToString(GPU_Load) +"%");
-                GPU_tab_Fre.Append("频率："+Convert.ToString(Hardwaremonitor.Get_GPU_Clock())+"Mhz");
-                label6.Text = Convert.ToString(CPU_tab_temp);
-                label7.Text = Convert.ToString(CPU_tab_Load);
-                label8.Text = Convert.ToString(CPU_tab_Fre);
-                label10.Text = Convert.ToString(GPU_tab_temp);
-                label11.Text = Convert.ToString(GPU_tab_Load);
-                label12.Text = Convert.ToString(GPU_tab_Fre);
-                CPU_tab_temp.Clear();
-                CPU_tab_Load.Clear();
-                CPU_tab_Fre.Clear();
-                GPU_tab_temp.Clear();
-                GPU_tab_Load.Clear();
-                GPU_tab_Fre.Clear();
-                series.Points.AddY(CPU_temp);
+                if (Refresh_flag)//判断是否进入后台，关闭页面刷新
+                {
+                    CPU_tab_temp.Append("温度：" + Convert.ToString(CPU_temp) + "°C");
+                    CPU_tab_Load.Append("使用率：" + Convert.ToString(CPU_Load) + "%");
+                    CPU_tab_Fre.Append("频率：" + Convert.ToString(Hardwaremonitor.Get_CPU_Clock() + "Mhz"));
+                    GPU_tab_temp.Append("温度：" + Convert.ToString(GPU_temp) + "°C");
+                    GPU_tab_Load.Append("使用率：" + Convert.ToString(GPU_Load) + "%");
+                    GPU_tab_Fre.Append("频率：" + Convert.ToString(Hardwaremonitor.Get_GPU_Clock()) + "Mhz");
+                    label6.Text = Convert.ToString(CPU_tab_temp);
+                    label7.Text = Convert.ToString(CPU_tab_Load);
+                    label8.Text = Convert.ToString(CPU_tab_Fre);
+                    label10.Text = Convert.ToString(GPU_tab_temp);
+                    label11.Text = Convert.ToString(GPU_tab_Load);
+                    label12.Text = Convert.ToString(GPU_tab_Fre);
+                    CPU_tab_temp.Clear();
+                    CPU_tab_Load.Clear();
+                    CPU_tab_Fre.Clear();
+                    GPU_tab_temp.Clear();
+                    GPU_tab_Load.Clear();
+                    GPU_tab_Fre.Clear();
+                    series.Points.AddY(CPU_temp);
+                }
                 try
                 {
                     if (Send_flag)//开始补位操作，数据帧的结构是3字节一个信息
@@ -223,8 +227,9 @@ namespace PCA
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            notifyIcon1.Visible = true;                 //小图标可见
+            this.Hide();//窗体隐藏                                
+            notifyIcon1.Visible = true;//小图标可见
+            Refresh_flag =false;//停止上位机面板数据刷新，减少性能开销
         }
 
         private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
@@ -235,6 +240,7 @@ namespace PCA
                 this.WindowState = FormWindowState.Normal;  //窗体默认大小
                 this.notifyIcon1.Visible = true;            //设置图标可见
                 notifyIcon1.Visible =false;                 //小图标不可见
+                Refresh_flag =true;
             }
         }
         private void tabControl_DrawItem(object sender, DrawItemEventArgs e)
